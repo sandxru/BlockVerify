@@ -31,10 +31,10 @@ function Home() {
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons">
-                                <a class="button is-primary" href='/verify'>
+                                <a class="button is-primary is-rounded" href='/verify'>
                                     <strong>Get Verified</strong>
                                 </a>
-                                <a class="button is-light" href='admin'>
+                                <a class="button is-light is-rounded" href='admin'>
                                     Admin Login
                                 </a>
                             </div>

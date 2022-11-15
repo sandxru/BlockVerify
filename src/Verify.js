@@ -1,7 +1,16 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function Verify() {
+
+    // useEffect(() => {
+    //     const loadProvider = async () => {
+    //         console.log(window.web3);
+    //         console.log(window.ethereum);
+    //     }
+    //     loadProvider();
+    // }, [])
+
     return (
         <>
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -9,12 +18,6 @@ function Verify() {
                     <a class="navbar-item" href="/">
                         <img alt='logo' src="logo.png" width="112" height="28" />
                     </a>
-
-                    {/* <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a> */}
 
                     <div class="navbar-menu" id="navMenu">
 
@@ -37,44 +40,85 @@ function Verify() {
                     <section class="section">
                         <h1 class="title">Document Submission Form</h1>
 
+                        
+
+
                         <div class="field">
                             <label class="label">Wallet Address</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="" />
+                                <input class="input is-rounded" id="wallet" value="" type="text" placeholder="" desabled/>
                             </div>
                         </div>
 
                         <div class="field">
+                            <button class="button is-primary is-rounded"
+                                onClick={async () => {
+                                    const account = await window.ethereum.request({method: "eth_requestAccounts"})
+                                    console.log(account)
+                                    document.getElementById('wallet').value = account;
+                                }}>Connect Wallet</button>
+                        </div>
+
+
+                        <div class="field">
                             <label class="label">Full Name</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="" />
+                                <input class="input is-rounded" type="text" placeholder="" />
                             </div>
                         </div>
 
                         <div class="field">
                             <label class="label">NIC Number</label>
                             <div class="control">
-                                <input class="input" type="text" placeholder="" />
+                                <input class="input is-rounded" type="text" placeholder="" />
                             </div>
                         </div>
+                        <br />
 
                         <div class="field">
-                            <label class="label">NIC Front</label>
-                            <div class="file is-right field is-fullwidth">
+                            <label class="label">NIC Front</label><br />
+                            <div class="file is-centered is-boxed is-success has-name">
                                 <label class="file-label">
                                     <input class="file-input" type="file" name="resume" />
                                     <span class="file-cta">
-                                        <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
-                                        <span class="file-label">Choose a file</span>
+
+                                        <span class="file-label">Choose (JPEG/PNG)</span>
                                     </span>
-                                    <span class="file-name">
-                                        Screen Shot 2017-07-29 at 15.54.25.png
-                                    </span>
+                                    <span class="file-name is-center">Image.png</span>
                                 </label>
                             </div>
                         </div>
+                        <br />
+
+                        <div class="field">
+                            <label class="label">NIC Back</label><br />
+                            <div class="file is-centered is-boxed is-success has-name">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="resume" />
+                                    <span class="file-cta">
+
+                                        <span class="file-label">Choose (JPEG/PNG)</span>
+                                    </span>
+                                    <span class="file-name is-center">Image.png</span>
+                                </label>
+                            </div>
+                        </div>
+                        <br />
+
+                        <div class="field">
+                            <label class="label">Upload a selfie with the NIC</label><br />
+                            <div class="file is-centered is-boxed is-success has-name">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="resume" />
+                                    <span class="file-cta">
+
+                                        <span class="file-label">Choose (JPEG/PNG)</span>
+                                    </span>
+                                    <span class="file-name is-center">Image.png</span>
+                                </label>
+                            </div>
+                        </div>
+                        <br />
 
 
                         <div class="field">
@@ -87,10 +131,7 @@ function Verify() {
 
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-link">Submit</button>
-                            </div>
-                            <div class="control">
-                                <button class="button is-link is-light">Cancel</button>
+                                <button class="button is-primary is-rounded">Submit for Review</button>
                             </div>
                         </div>
 
