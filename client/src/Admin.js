@@ -144,12 +144,12 @@ function Admin() {
                                     <td>0xd32214ab7ae483Cc0cFCE495E0fFDDadaFe522be</td>
                                     <td><button class="button is-warning">Review</button></td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <th>2</th>
                                     <td>Shimara Amandi</td>
                                     <td>0x096b9632BA5aCcEDb3a823973e4E72671f59ba64</td>
                                     <td><button class="button is-warning">Review</button></td>
-                                </tr>
+                                </tr> */}
 
                             </tbody>
                         </table>
