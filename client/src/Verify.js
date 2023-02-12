@@ -16,15 +16,16 @@ function Verify() {
 
     const submitApplication = () => {
         console.log("start")
-        Axios.post('http://localhost:3001/create', { 
+        Axios.post('http://localhost:3001/create', {
             address: address,
             name: name,
             nic: nic,
             nicfront: nicfront,
             nicback: nicback,
-            selfie: selfie }).then(()=>{
-                console.log("Success")
-            });
+            selfie: selfie
+        }).then(() => {
+            console.log("Success")
+        });
     };
 
     return (
@@ -55,8 +56,6 @@ function Verify() {
 
                     <section class="section">
                         <h1 class="title">Document Submission Form</h1>
-
-
 
 
                         <div class="field">
@@ -109,7 +108,9 @@ function Verify() {
                             <label class="label">NIC Front</label><br />
                             <div class="file is-centered is-boxed is-success has-name">
                                 <label class="file-label">
-                                    <input class="file-input" type="file" name="resume" />
+                                    <input id="imagefront" name="imagefront" class="file-input" type="file" onChange={(event) => {
+                                        setNICFront(event.target.value)
+                                    }} />
                                     <span class="file-cta">
 
                                         <span class="file-label">Choose (JPEG/PNG)</span>
@@ -149,7 +150,6 @@ function Verify() {
                             </div>
                         </div>
                         <br />
-
 
                         <div class="field">
                             <div class="control">

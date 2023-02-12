@@ -19,9 +19,6 @@ function Admin() {
         web3: null
     })
 
-
-
-
     useEffect(() => {
         const loadProvider = async () => {
             let provider = null;
