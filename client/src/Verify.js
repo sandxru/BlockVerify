@@ -1,21 +1,13 @@
 import './App.css';
-import { useState } from "react";
 import axios from 'axios';
 
 function Verify() {
 
-    const [address, setAddress] = useState("")
-
-    var form = document.querySelector("#formElement");
-
-    console.log(form)
-
     const submitApplication = (e) => {
         e.preventDefault();
-        form = document.querySelector("#formElement");
+        var form = document.querySelector("#formElement");
         console.log(form)
         const formData = new FormData(form);
-
         axios.post('http://localhost:3001/create', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
@@ -57,16 +49,17 @@ function Verify() {
                             <div class="field">
                                 <label class="label">Wallet Address</label>
                                 <div class="control">
-                                    <input type="text" class="input is-rounded" name='wallet' />
+                                    <input type="text" class="input is-rounded" name='wallet' id="wallet" />
                                 </div>
                             </div>
 
                             <div class="field">
                                 <button id="walletbtn" class="button is-primary is-rounded"
-                                    onClick={async () => {
+                                    onClick={async (e) => {
+                                        e.preventDefault();
                                         document.getElementById('walletbtn').className = "button is-primary is-rounded is-loading";
                                         const account = await window.ethereum.request({ method: "eth_requestAccounts" })
-                                        setAddress(account[0])
+                                        
                                         console.log("Account retrieved :", account)
 
                                         var delayInMilliseconds = 500;
@@ -155,8 +148,6 @@ function Verify() {
                     </section>
                 </div>
             </div>
-
-
         </>
     );
 }

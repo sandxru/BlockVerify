@@ -5,30 +5,29 @@ const cloudinary = require("cloudinary").v2;
 const multer = require('multer')
 const upload = multer({ dest: './public/data/uploads/' })
 require('dotenv').config();
-const async = require('async')
-
-const cl_user = process.env.CLUSER;
-const cl_key = process.env.CLKEY;
-const cl_secret = process.env.CLSECRET;
 
 const app = express()
 app.use(cors());
 app.use(express.json());
 
-//  Cloudinary intergration
+//  Cloudinary Intergration
+const cl_user = process.env.CLUSER;
+const cl_key = process.env.CLKEY;
+const cl_secret = process.env.CLSECRET;
+
 cloudinary.config({
     cloud_name: cl_user,
     api_key: cl_key,
     api_secret: cl_secret
 });
 
+// Database Connection
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
     database: 'blockverify'
 })
-
 
 app.post('/create', upload.array('uploaded_file'), function (req, res) {
     console.log(req)
@@ -40,10 +39,6 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
     var nicback = req.files[1].path;
     var selfie = req.files[2].path;
     var state = 1
-
-    var frontURL = "temp_string"
-    var backURL = "temp_string"
-    var selfieURL = "temp_string"
 
     cloudinary.uploader.upload(nicfront, function (err, result) {
         console.log("Result: ", result);
@@ -68,7 +63,6 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
             });
         });
     });
-
 });
 
 app.listen(3001, () => {
