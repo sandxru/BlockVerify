@@ -48,26 +48,27 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
     cloudinary.uploader.upload(nicfront, function (err, result) {
         console.log("Result: ", result);
         frontURL = result.secure_url;
+
+        cloudinary.uploader.upload(nicback, function (err, result) {
+            console.log("Result: ", result);
+            backURL = result.secure_url;
+
+            cloudinary.uploader.upload(selfie, function (err, result) {
+                console.log("Result: ", result);
+                selfieURL = result.secure_url;
+            }).then(() => {
+                // Insert into MySQL Database
+                db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, frontURL, backURL, selfieURL, state], (err, result) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.send("Inserted into MySQL!")
+                    }
+                })
+            });
+        });
     });
 
-    cloudinary.uploader.upload(nicback, function (err, result) {
-        console.log("Result: ", result);
-        backURL = result.secure_url;
-    });
-
-    cloudinary.uploader.upload(selfie, function (err, result) {
-        console.log("Result: ", result);
-        selfieURL = result.secure_url;
-    });
-
-    // Insert into MySQL Database
-    db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, frontURL, backURL, selfieURL, state], (err, result) => {
-        if (err) {
-            console.log(err)
-        } else {
-            res.send("Inserted into MySQL!")
-        }
-    })
 });
 
 app.listen(3001, () => {
