@@ -26,9 +26,7 @@ function Verify() {
                     <a class="navbar-item" href="/">
                         <img alt='logo' src="logo.png" width="112" height="28" />
                     </a>
-
                     <div class="navbar-menu" id="navMenu">
-
                     </div>
                 </div>
 
@@ -40,13 +38,11 @@ function Verify() {
                 </div>
             </nav>
             <hr style={{ marginTop: "0px" }} />
-
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
 
                     <section class="section">
                         <h1 class="title">Document Submission Form</h1>
-
                         <form id="formElement" encType="multipart/form-data" method="post">
                             <div class="field">
                                 <label class="label">Wallet Address</label>
@@ -61,20 +57,15 @@ function Verify() {
                                         e.preventDefault();
                                         document.getElementById('walletbtn').className = "button is-primary is-rounded is-loading";
                                         const account = await window.ethereum.request({ method: "eth_requestAccounts" })
-                                        
                                         console.log("Account retrieved :", account)
-
                                         var delayInMilliseconds = 500;
-
                                         setTimeout(function () {
                                             document.getElementById('wallet').value = account;
                                             document.getElementById('walletbtn').className = "button is-primary is-rounded";
                                             document.getElementById('walletbtn').innerHTML = "Connected";
                                         }, delayInMilliseconds);
-
                                     }}>Connect Wallet</button>
                             </div>
-
 
                             <div class="field">
                                 <label class="label">Full Name</label>
