@@ -2,8 +2,10 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
-const multer = require("multer");
+const multer = require('multer')
+const upload = multer({ dest: './public/data/uploads/' })
 require('dotenv').config();
+const async = require('async')
 
 const cl_user = process.env.CLUSER;
 const cl_key = process.env.CLKEY;
@@ -27,44 +29,46 @@ const db = mysql.createConnection({
     database: 'blockverify'
 })
 
-app.post('/create', (req, res) => {
 
+app.post('/create', upload.array('uploaded_file'), function (req, res) {
+    console.log(req)
 
-    // Retrieving data from the client
-    const wallet = req.body.address
-    const name = req.body.name
-    const nic = req.body.nic
+    var wallet = req.body.wallet
+    var name = req.body.fname
+    var nic = req.body.nic
+    var nicfront = req.files[0].path;
+    var nicback = req.files[1].path;
+    var selfie = req.files[2].path;
+    var state = 1
 
-    // const nicfront  = req.body.nicfront
-    // const nicback   = req.body.nicback
-    // const selfie    = req.body.selfie
-    // const state     = req.body.selfie
+    var frontURL = "temp_string"
+    var backURL = "temp_string"
+    var selfieURL = "temp_string"
 
-    const nicfront = req.body.nicfront
-    var nicfurl = ""
-    console.log(nicfront)
-
-    cloudinary.uploader.upload(nicfront.tempFilePath, function (err, result) {
-        console.log("Error: ", err);
+    cloudinary.uploader.upload(nicfront, function (err, result) {
         console.log("Result: ", result);
-        nicfurl = result.secure_url;
-        console.log(nicfurl)
-
+        frontURL = result.secure_url;
     });
 
-    //const nicfront = ""
-    const nicback = ""
-    const selfie = ""
-    const state = 1
+    cloudinary.uploader.upload(nicback, function (err, result) {
+        console.log("Result: ", result);
+        backURL = result.secure_url;
+    });
 
-    db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, nicfurl, nicback, selfie, state], (err, result) => {
+    cloudinary.uploader.upload(selfie, function (err, result) {
+        console.log("Result: ", result);
+        selfieURL = result.secure_url;
+    });
+
+    // Insert into MySQL Database
+    db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, frontURL, backURL, selfieURL, state], (err, result) => {
         if (err) {
             console.log(err)
         } else {
-            res.send("Inserted!")
+            res.send("Inserted into MySQL!")
         }
     })
-})
+});
 
 app.listen(3001, () => {
     db.connect(function (err) {
