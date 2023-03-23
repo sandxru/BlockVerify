@@ -14,6 +14,8 @@ function Verify() {
             }
         }).then(() => {
             console.log("Successfully Sent!")
+            alert("Successfully Sent!");
+            window.location.reload();
         });
     };
 

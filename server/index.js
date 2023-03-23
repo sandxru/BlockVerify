@@ -5,6 +5,7 @@ const cloudinary = require("cloudinary").v2;
 const multer = require('multer')
 const upload = multer({ dest: './public/data/uploads/' })
 require('dotenv').config();
+const async = require('async')
 
 const app = express()
 app.use(cors());
@@ -40,29 +41,36 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
     var selfie = req.files[2].path;
     var state = 1
 
-    cloudinary.uploader.upload(nicfront, function (err, result) {
-        console.log("Result: ", result);
-        frontURL = result.secure_url;
-
-        cloudinary.uploader.upload(nicback, function (err, result) {
-            console.log("Result: ", result);
-            backURL = result.secure_url;
-
+    // Run the three uploads in parallel
+    async.parallel({
+        frontURL: (done) => {
+            cloudinary.uploader.upload(nicfront, function (err, result) {
+                console.log("Result: ", result);
+                done(null,result.secure_url);
+            });
+        },
+        backURL: (done) => {
+            cloudinary.uploader.upload(nicback, function (err, result) {
+                console.log("Result: ", result);
+                done(null,result.secure_url);
+            });
+        },
+        selfieURL: (done) => {
             cloudinary.uploader.upload(selfie, function (err, result) {
                 console.log("Result: ", result);
-                selfieURL = result.secure_url;
-            }).then(() => {
-                // Insert into MySQL Database
-                db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, frontURL, backURL, selfieURL, state], (err, result) => {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        res.send("Inserted into MySQL!")
-                    }
-                })
+                done(null,result.secure_url);
             });
-        });
-    });
+        }
+    }, (err, urls) => {
+        // Insert into MySQL Database
+        db.query("INSERT INTO applications (wallet, name, nic, nicfront, nicback, selfie, state) VALUE (?,?,?,?,?,?,?)", [wallet, name, nic, urls.frontURL, urls.backURL, urls.selfieURL, state], (err, result) => {
+            if (err) {
+                console.log(err)
+            } else {
+                res.send("Inserted into MySQL!")
+            }
+        })
+    })
 });
 
 app.listen(3001, () => {
