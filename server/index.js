@@ -4,8 +4,8 @@ const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
 const multer = require('multer')
 const upload = multer({ dest: './public/data/uploads/' })
-require('dotenv').config();
 const async = require('async')
+require('dotenv').config();
 
 const app = express()
 app.use(cors());
