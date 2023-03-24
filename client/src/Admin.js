@@ -1,18 +1,10 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import { useState } from "react";
-import Axios from 'axios';
 import Web3 from 'web3';
+import axios from 'axios';
 
 function Admin() {
-
-    const [address, setAddress] = useState("")
-    const [name, setName] = useState("")
-    const [nic, setNIC] = useState("")
-    const [nicfront, setNICFront] = useState("")
-    const [nicback, setNICBack] = useState("")
-    const [selfie, setSelfie] = useState("")
-
 
     const [web3Api, setWeb3Api] = useState({
         provider: null,
@@ -34,7 +26,7 @@ function Admin() {
             } else if (window.web3) {
                 provider = window.web3.currentProvider
 
-            } else if (!process.env.productio){
+            } else if (!process.env.productio) {
                 provider = new Web3.providers.HttpProvider("http://localhost:7545")
             }
 
@@ -48,21 +40,18 @@ function Admin() {
 
     console.log(web3Api.web3)
 
-    
+    const [applicationList, setApplicationList] = useState([]);
 
-    const submitApplication = () => {
-        console.log("start")
-        Axios.post('http://localhost:3001/create', {
-            address: address,
-            name: name,
-            nic: nic,
-            nicfront: nicfront,
-            nicback: nicback,
-            selfie: selfie
-        }).then(() => {
-            console.log("Success")
-        });
-    };
+    useEffect(() => {
+        const getApplications = () => {
+            axios.get('http://localhost:3001/applications').then((response) => {
+                console.log(response)
+                setApplicationList(response.data)
+                console.log("Get Request Success!")
+            });
+        }
+        getApplications()
+    }, [])
 
     return (
         <>
@@ -93,7 +82,7 @@ function Admin() {
                 <div class="level-item has-text-centered">
                     <div class="box">
                         <p class="heading">Pending Applications</p>
-                        <p class="title">175</p>
+                        <p class="title">{applicationList.length}</p>
                     </div>
                 </div>
                 <div class="level-item has-text-centered">
@@ -120,34 +109,35 @@ function Admin() {
                                 <tr>
                                     <th><abbr title="Position">#</abbr></th>
                                     <th>Name</th>
+                                    <th>NIC</th>
                                     <th>Wallet Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
-                            <tfoot>
+                            {/* <tfoot>
                                 <tr>
                                     <th><abbr title="Position">#</abbr></th>
                                     <th>Name</th>
                                     <th>Wallet Address</th>
                                     <th>Action</th>
                                 </tr>
-                            </tfoot>
+                            </tfoot> */}
 
                             <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <td>Sandaru Fernando</td>
-                                    <td>0xd32214ab7ae483Cc0cFCE495E0fFDDadaFe522be</td>
-                                    <td><button class="button is-warning">Review</button></td>
-                                </tr>
-                                {/* <tr>
-                                    <th>2</th>
-                                    <td>Shimara Amandi</td>
-                                    <td>0x096b9632BA5aCcEDb3a823973e4E72671f59ba64</td>
-                                    <td><button class="button is-warning">Review</button></td>
-                                </tr> */}
-
+                                {applicationList.map((val, key) => {
+                                    return (
+                                        <>
+                                            <tr>
+                                                <td>{val.id}</td>
+                                                <td>{val.name}</td>
+                                                <td>{val.nic}</td>
+                                                <td>{val.wallet}</td>
+                                                <td><button class="button is-warning">Review</button></td>
+                                            </tr>
+                                        </>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </section></div></div>

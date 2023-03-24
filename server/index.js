@@ -73,6 +73,17 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
     })
 });
 
+app.get('/applications', (req, res) =>{
+    db.query("SELECT * FROM applications", (err, result) => {
+        if (err) {
+            console.log(err)
+        }
+        else{
+            res.send(result)
+        }
+    })
+})
+
 app.listen(3001, () => {
     db.connect(function (err) {
         if (err) throw err;
