@@ -75,9 +75,6 @@ function Admin() {
             </nav>
             <hr style={{ marginTop: "0px" }} />
 
-
-
-
             <nav class="level">
                 <div class="level-item has-text-centered">
                     <div class="box">
@@ -98,7 +95,6 @@ function Admin() {
                     </div>
                 </div>
             </nav>
-
 
             <div class="columns">
                 <div class="column is-quater is-offset-one-quarter">
@@ -140,8 +136,90 @@ function Admin() {
                                 })}
                             </tbody>
                         </table>
-                    </section></div></div>
+                    </section>
+                </div>
+            </div>
 
+
+
+
+
+            <div id='reviewcontainer' hidden="">
+                <nav class="level">
+                    <progress class="progress is-success is-small" value="0" ></progress>
+                </nav>
+
+                <div class="columns">
+                    <div class="column is-half is-offset-one-quarter">
+
+                        <section class="section">
+                            <h1 class="title">Document Submission Form</h1>
+                            <form id="formElement" encType="multipart/form-data" method="post">
+                                <div class="field">
+                                    <label class="label">Wallet Address</label>
+                                    <div class="control">
+                                        <input type="text" class="input is-rounded" name='wallet' id="wallet" value="0xeedd16766b07db84ca20f8f108314909d11980f5" />
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">Full Name</label>
+                                    <div class="control">
+                                        <input type="text" name='fname' class="input is-rounded" value="Sandaru Fernando" />
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <label class="label">NIC Number</label>
+                                    <div class="control">
+                                        <input type="text" name='nic' class="input is-rounded" value="199907500474" />
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="field">
+                                    <label class="label">NIC Front</label><br />
+                                    <div class="file is-centered is-boxed is-success has-name">
+                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651675/hvjgt8nimecnjfsku418.png" />
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="field">
+                                    <label class="label">NIC Back</label><br />
+                                    <div class="file is-centered is-boxed is-success has-name">
+                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651677/zibgag4qtcrksiicec3t.png" />
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="field">
+                                    <label class="label">Selfie</label><br />
+                                    <div class="file is-centered is-boxed is-success has-name">
+                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651676/zptyfzgz8gjb2jn0ikt8.png" />
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="field">
+                                    <div class="control">
+                                        <label class="checkbox">
+                                            <input type="checkbox" /> Confirm the details are correct.
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="field is-grouped">
+                                    <div class="control">
+                                        <button class="button is-danger is-rounded" style={{ marginRight: "10px" }}>Decline</button>
+                                        <button class="button is-primary is-rounded">Approve</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
 
         </>
     );
