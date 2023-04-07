@@ -53,6 +53,15 @@ function Admin() {
         getApplications()
     }, [])
 
+    function setForm(wallet, name, nic, nicfront, nicback, selfie) {
+        document.getElementById("formwallet").value = wallet;
+        document.getElementById("formname").value = name;
+        document.getElementById("formnic").value = nic;
+        document.getElementById("formnicfront").src = nicfront;
+        document.getElementById("formnicback").src = nicback;
+        document.getElementById("formselfie").src = selfie;
+    }
+
     return (
         <>
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -129,7 +138,7 @@ function Admin() {
                                                 <td>{val.name}</td>
                                                 <td>{val.nic}</td>
                                                 <td>{val.wallet}</td>
-                                                <td><button class="button is-warning">Review</button></td>
+                                                <td><button onClick={() => setForm(val.wallet, val.name, val.nic, val.nicfront, val.nicback, val.selfie)} class="button is-warning">Review</button></td>
                                             </tr>
                                         </>
                                     )
@@ -158,21 +167,21 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">Wallet Address</label>
                                     <div class="control">
-                                        <input type="text" class="input is-rounded" name='wallet' id="wallet" value="0xeedd16766b07db84ca20f8f108314909d11980f5" />
+                                        <input type="text" class="input is-rounded" name='wallet' id="formwallet" />
                                     </div>
                                 </div>
 
                                 <div class="field">
                                     <label class="label">Full Name</label>
                                     <div class="control">
-                                        <input type="text" name='fname' class="input is-rounded" value="Sandaru Fernando" />
+                                        <input type="text" name='fname' id='formname' class="input is-rounded" />
                                     </div>
                                 </div>
 
                                 <div class="field">
                                     <label class="label">NIC Number</label>
                                     <div class="control">
-                                        <input type="text" name='nic' class="input is-rounded" value="199907500474" />
+                                        <input type="text" name='nic' class="input is-rounded" id='formnic' />
                                     </div>
                                 </div>
                                 <br />
@@ -180,7 +189,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">NIC Front</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651675/hvjgt8nimecnjfsku418.png" />
+                                        <img width="325px" class="is-rounded" id='formnicfront' />
                                     </div>
                                 </div>
                                 <br />
@@ -188,7 +197,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">NIC Back</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651677/zibgag4qtcrksiicec3t.png" />
+                                        <img width="325px" class="is-rounded" id='formnicback' />
                                     </div>
                                 </div>
                                 <br />
@@ -196,7 +205,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">Selfie</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" src="https://res.cloudinary.com/sandxru/image/upload/v1679651676/zptyfzgz8gjb2jn0ikt8.png" />
+                                        <img width="325px" class="is-rounded" id='formselfie'/>
                                     </div>
                                 </div>
                                 <br />
@@ -222,6 +231,7 @@ function Admin() {
             </div>
 
         </>
+
     );
 }
 
