@@ -43,6 +43,8 @@ function Admin() {
     const [applicationList, setApplicationList] = useState([]);
 
     useEffect(() => {
+        document.getElementById("reviewcontainer").style.display = 'none';
+
         const getApplications = () => {
             axios.get('http://localhost:3001/applications').then((response) => {
                 console.log(response)
@@ -54,6 +56,8 @@ function Admin() {
     }, [])
 
     function setForm(wallet, name, nic, nicfront, nicback, selfie) {
+        document.getElementById("reviewcontainer").style.display = 'block';
+        
         document.getElementById("formwallet").value = wallet;
         document.getElementById("formname").value = name;
         document.getElementById("formnic").value = nic;
@@ -104,7 +108,7 @@ function Admin() {
                     </div>
                 </div>
             </nav>
-            
+
 
             <div class="columns">
                 <div class="column is-quater is-offset-one-quarter">
@@ -206,7 +210,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">Selfie</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" id='formselfie'/>
+                                        <img width="325px" class="is-rounded" id='formselfie' />
                                     </div>
                                 </div>
                                 <br />
