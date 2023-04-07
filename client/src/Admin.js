@@ -104,6 +104,7 @@ function Admin() {
                     </div>
                 </div>
             </nav>
+            
 
             <div class="columns">
                 <div class="column is-quater is-offset-one-quarter">
