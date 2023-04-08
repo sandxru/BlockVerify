@@ -55,9 +55,11 @@ function Admin() {
         getApplications()
     }, [])
 
-    function setForm(wallet, name, nic, nicfront, nicback, selfie) {
+    var deleteID = 0
+    function setForm(id, wallet, name, nic, nicfront, nicback, selfie) {
         document.getElementById("reviewcontainer").style.display = 'block';
-        
+        document.getElementById("formid").innerHTML = "Application Number: #" + id;
+        deleteID = id
         document.getElementById("formwallet").value = wallet;
         document.getElementById("formname").value = name;
         document.getElementById("formnic").value = nic;
@@ -65,6 +67,17 @@ function Admin() {
         document.getElementById("formnicback").src = nicback;
         document.getElementById("formselfie").src = selfie;
     }
+
+    const declineRecord = (e) => {
+        e.preventDefault();
+        axios.post('http://localhost:3001/delete', {
+            applicationID: deleteID,
+        }).then(() => {
+            console.log("Successfully Deleted!")
+            alert("Application Declined Successfully!");
+            window.location.reload();
+        });
+    };
 
     return (
         <>
@@ -143,7 +156,7 @@ function Admin() {
                                                 <td>{val.name}</td>
                                                 <td>{val.nic}</td>
                                                 <td>{val.wallet}</td>
-                                                <td><button onClick={() => setForm(val.wallet, val.name, val.nic, val.nicfront, val.nicback, val.selfie)} class="button is-warning">Review</button></td>
+                                                <td><button onClick={() => setForm(val.id, val.wallet, val.name, val.nic, val.nicfront, val.nicback, val.selfie)} class="button is-warning">Review</button></td>
                                             </tr>
                                         </>
                                     )
@@ -169,6 +182,11 @@ function Admin() {
                         <section class="section">
                             <h1 class="title">Document Submission Form</h1>
                             <form id="formElement" encType="multipart/form-data" method="post">
+
+                                <div class="field">
+                                    <label class="label" id='formid'> </label>
+                                </div>
+
                                 <div class="field">
                                     <label class="label">Wallet Address</label>
                                     <div class="control">
@@ -225,7 +243,7 @@ function Admin() {
 
                                 <div class="field is-grouped">
                                     <div class="control">
-                                        <button class="button is-danger is-rounded" style={{ marginRight: "10px" }}>Decline</button>
+                                        <button onClick={declineRecord} class="button is-danger is-rounded" style={{ marginRight: "10px" }}>Decline</button>
                                         <button class="button is-primary is-rounded">Approve</button>
                                     </div>
                                 </div>

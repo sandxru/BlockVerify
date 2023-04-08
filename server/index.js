@@ -46,19 +46,19 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
         frontURL: (done) => {
             cloudinary.uploader.upload(nicfront, function (err, result) {
                 console.log("Result: ", result);
-                done(null,result.secure_url);
+                done(null, result.secure_url);
             });
         },
         backURL: (done) => {
             cloudinary.uploader.upload(nicback, function (err, result) {
                 console.log("Result: ", result);
-                done(null,result.secure_url);
+                done(null, result.secure_url);
             });
         },
         selfieURL: (done) => {
             cloudinary.uploader.upload(selfie, function (err, result) {
                 console.log("Result: ", result);
-                done(null,result.secure_url);
+                done(null, result.secure_url);
             });
         }
     }, (err, urls) => {
@@ -68,21 +68,39 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
                 console.log(err)
             } else {
                 res.send("Inserted into MySQL!")
+                console.log("Inserted into MySQL!")
             }
         })
     })
 });
 
-app.get('/applications', (req, res) =>{
+app.get('/applications', (req, res) => {
     db.query("SELECT * FROM applications", (err, result) => {
         if (err) {
             console.log(err)
         }
-        else{
+        else {
             res.send(result)
         }
     })
 })
+
+app.post('/delete', function (req, res) {
+    console.log(req.body)
+
+    var id = req.body.applicationID
+
+    let sql = "DELETE FROM applications WHERE id = ?"
+
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send("Deleted!")
+            console.log("Deleted : " + id )
+        }
+    })
+});
 
 app.listen(3001, () => {
     db.connect(function (err) {
