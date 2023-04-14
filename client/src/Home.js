@@ -33,7 +33,10 @@ function Home() {
                                 <a class="button is-primary is-rounded" href='/verify'>
                                     <strong>Get Verified</strong>
                                 </a>
-                                <a class="button is-light is-rounded" href='admin'>
+                                <a class="button is-danger is-rounded" href='/check'>
+                                    Check Status
+                                </a>
+                                <a class="button is-light is-rounded" href='/admin'>
                                     Admin Login
                                 </a>
                             </div>
