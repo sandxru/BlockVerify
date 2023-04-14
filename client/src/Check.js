@@ -1,5 +1,4 @@
 import './App.css';
-import axios from 'axios';
 
 function Check() {
 
@@ -7,16 +6,8 @@ function Check() {
         e.preventDefault();
         var form = document.querySelector("#formElement");
         console.log(form)
-        const formData = new FormData(form);
-        axios.post('http://localhost:3001/create', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(() => {
-            console.log("Successfully Sent!")
-            alert("Successfully Sent!");
-            window.location.reload();
-        });
+
+
     };
 
 
@@ -53,7 +44,7 @@ function Check() {
                             </div>
 
                             <div class="field">
-                                <button id="walletbtn" class="button is-primary is-rounded"
+                                <button id="checkbtn" class="button is-primary is-rounded"
                                     onClick={checkStatus}>Check</button>
                             </div>
 
