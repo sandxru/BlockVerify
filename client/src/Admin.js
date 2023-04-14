@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useState } from "react";
 import Web3 from 'web3';
 import axios from 'axios';
-
 import BlockVerifyContract from ".//truffle/build/contracts/BlockVerify.json";
 
 
@@ -53,7 +52,7 @@ function Admin() {
     let Contract = undefined;
     let web3;
 
-    const W = async (e) => {
+    const Web3Config = async (e) => {
         provider = window.ethereum;
         web3 = new Web3(provider);
 
@@ -67,7 +66,7 @@ function Admin() {
         console.log("ABI :", BlockVerifyContract.abi);
     }
 
-    W()
+    Web3Config()
 
     const acceptRecord = async (e) => {
         e.preventDefault();
