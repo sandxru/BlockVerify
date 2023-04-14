@@ -58,7 +58,7 @@ function Admin() {
 
         const netId = await web3.eth.net.getId();
         console.log("Net ID : ", netId);
-        Contract = await new web3.eth.Contract(
+        Contract = new web3.eth.Contract(
             BlockVerifyContract.abi,
             BlockVerifyContract.networks[netId].address
         );
@@ -90,10 +90,7 @@ function Admin() {
                     <a class="navbar-item" href="/">
                         <img alt='logo' src="logo.png" width="112" height="28" />
                     </a>
-
-                    <div class="navbar-menu" id="navMenu">
-
-                    </div>
+                    <div class="navbar-menu" id="navMenu"></div>
                 </div>
 
                 <div id="navbarBasicExample" class="navbar-menu">
