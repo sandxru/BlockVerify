@@ -10,6 +10,11 @@ function Check() {
         document.getElementById("notverified").style.display = 'none';
     })
 
+    function resetButtons() {
+        document.getElementById("verified").style.display = 'none';
+        document.getElementById("notverified").style.display = 'none';
+    }
+
     let provider, Contract, web3, items = undefined;
 
     const Web3Config = async (e) => {
@@ -26,6 +31,8 @@ function Check() {
     const checkStatus = async (e) => {
         e.preventDefault();
 
+        resetButtons()
+        
         items = await Contract.methods.getItems().call();
         console.log("Items : ", items);
 
@@ -37,6 +44,7 @@ function Check() {
             document.getElementById("verified").style.display = 'block';
         } else {
             console.log("Not Verified")
+            document.getElementById("notverified").style.display = 'block';
         }
     };
 
