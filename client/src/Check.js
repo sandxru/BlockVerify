@@ -1,15 +1,44 @@
 import './App.css';
+import React, { useEffect } from 'react';
+import Web3 from 'web3';
+import BlockVerifyContract from ".//truffle/build/contracts/BlockVerify.json";
 
 function Check() {
 
-    const checkStatus = (e) => {
+    useEffect(() => {
+        document.getElementById("verified").style.display = 'none';
+        document.getElementById("notverified").style.display = 'none';
+    })
+
+    let provider, Contract, web3, items = undefined;
+
+    const Web3Config = async (e) => {
+        provider = window.ethereum;
+        web3 = new Web3(provider);
+        const netId = await web3.eth.net.getId();
+        Contract = new web3.eth.Contract(
+            BlockVerifyContract.abi,
+            BlockVerifyContract.networks[netId].address
+        );
+    }
+    Web3Config()
+
+    const checkStatus = async (e) => {
         e.preventDefault();
-        var form = document.querySelector("#formElement");
-        console.log(form)
 
+        items = await Contract.methods.getItems().call();
+        console.log("Items : ", items);
 
+        const addresscheck = document.querySelector("#wallet").value
+        console.log("Address to Check : " + addresscheck)
+
+        if (items.includes(addresscheck)) {
+            console.log("Verified")
+            document.getElementById("verified").style.display = 'block';
+        } else {
+            console.log("Not Verified")
+        }
     };
-
 
     return (
         <>
@@ -47,8 +76,12 @@ function Check() {
                                 <button id="checkbtn" class="button is-primary is-rounded"
                                     onClick={checkStatus}>Check</button>
                             </div>
-
                         </form>
+                        <br></br>
+
+                        <button id="verified" class="button is-success is-rounded" >Fully Verified</button>
+                        <button id="notverified" class="button is-danger is-rounded" >Not Verified</button>
+
                     </section>
                 </div>
             </div>

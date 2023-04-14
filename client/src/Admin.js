@@ -48,9 +48,7 @@ function Admin() {
     };
 
 
-    let provider = undefined;
-    let Contract = undefined;
-    let web3;
+    let provider, Contract, web3 = undefined;
 
     const Web3Config = async (e) => {
         provider = window.ethereum;
@@ -65,7 +63,6 @@ function Admin() {
         console.log("The contract : ", Contract);
         console.log("ABI :", BlockVerifyContract.abi);
     }
-
     Web3Config()
 
     const acceptRecord = async (e) => {
@@ -213,7 +210,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">NIC Front</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" id='formnicfront' />
+                                        <img width="325px" class="is-rounded" id='formnicfront' alt=''/>
                                     </div>
                                 </div>
                                 <br />
@@ -221,7 +218,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">NIC Back</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" id='formnicback' />
+                                        <img width="325px" class="is-rounded" id='formnicback' alt=''/>
                                     </div>
                                 </div>
                                 <br />
@@ -229,7 +226,7 @@ function Admin() {
                                 <div class="field">
                                     <label class="label">Selfie</label><br />
                                     <div class="file is-centered is-boxed is-success has-name">
-                                        <img width="325px" class="is-rounded" id='formselfie' />
+                                        <img width="325px" class="is-rounded" id='formselfie' alt=''/>
                                     </div>
                                 </div>
                                 <br />
