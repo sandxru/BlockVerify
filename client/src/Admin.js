@@ -4,41 +4,43 @@ import { useState } from "react";
 import Web3 from 'web3';
 import axios from 'axios';
 
+import BlockVerifyContract from ".//truffle/build/contracts/BlockVerify.json";
+
+
 function Admin() {
 
-    const [web3Api, setWeb3Api] = useState({
-        provider: null,
-        web3: null
-    })
+    // const [web3Api, setWeb3Api] = useState({
+    //     provider: null,
+    //     web3: null
+    // })
 
-    useEffect(() => {
-        const loadProvider = async () => {
-            let provider = null;
-            if (window.ethereum) {
-                provider = window.ethereum;
+    // useEffect(() => {
+    //     const loadProvider = async () => {
+    //         let provider = null;
+    //         if (window.ethereum) {
+    //             provider = window.ethereum;
 
-                try {
-                    await provider.enable();
-                } catch (error) {
-                    console.error("Not connected to Metamask")
-                }
+    //             try {
+    //                 await provider.enable();
+    //             } catch (error) {
+    //                 console.error("Not connected to Metamask")
+    //             }
 
-            } else if (window.web3) {
-                provider = window.web3.currentProvider
+    //         } else if (window.web3) {
+    //             provider = window.web3.currentProvider
 
-            } else if (!process.env.productio) {
-                provider = new Web3.providers.HttpProvider("http://localhost:7545")
-            }
+    //         } else if (!process.env.productio) {
+    //             provider = new Web3.providers.HttpProvider("http://localhost:7545")
+    //         }
 
-            setWeb3Api({
-                web3: new Web3(provider),
-                provider
-            })
-        }
-        loadProvider()
-    }, [])
-
-    console.log(web3Api.web3)
+    //         setWeb3Api({
+    //             web3: new Web3(provider),
+    //             provider
+    //         })
+    //     }
+    //     loadProvider()
+    // }, []);
+    // console.log("Web 3" + web3Api.web3)
 
     const [applicationList, setApplicationList] = useState([]);
 
@@ -77,6 +79,42 @@ function Admin() {
             alert("Application Declined Successfully!");
             window.location.reload();
         });
+    };
+
+
+    let provider = undefined;
+    let Contract = undefined;
+    let web3;
+
+    const W = async (e) => {
+        provider = window.ethereum;
+        web3 = new Web3(provider);
+
+        const netId = await web3.eth.net.getId();
+        console.log("Net ID : ", netId);
+        Contract = await new web3.eth.Contract(
+            BlockVerifyContract.abi,
+            BlockVerifyContract.networks[netId].address
+        );
+        console.log("The contract : ", Contract);
+        console.log("ABI :", BlockVerifyContract.abi);
+    }
+
+    W()
+
+    const acceptRecord = async (e) => {
+        e.preventDefault();
+        console.log("acceptRecord Started")
+        const account = await window.ethereum.request({ method: "eth_requestAccounts" })
+        console.log(account[0])
+
+
+        const item = document.getElementById("formwallet").value
+
+        await Contract.methods.addItem(item).send(
+            {
+                from: account[0],
+            })
     };
 
     return (
@@ -244,7 +282,7 @@ function Admin() {
                                 <div class="field is-grouped">
                                     <div class="control">
                                         <button onClick={declineRecord} class="button is-danger is-rounded" style={{ marginRight: "10px" }}>Decline</button>
-                                        <button class="button is-primary is-rounded">Approve</button>
+                                        <button onClick={acceptRecord} class="button is-primary is-rounded">Approve</button>
                                     </div>
                                 </div>
                             </form>
