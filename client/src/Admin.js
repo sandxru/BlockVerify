@@ -9,39 +9,6 @@ import BlockVerifyContract from ".//truffle/build/contracts/BlockVerify.json";
 
 function Admin() {
 
-    // const [web3Api, setWeb3Api] = useState({
-    //     provider: null,
-    //     web3: null
-    // })
-
-    // useEffect(() => {
-    //     const loadProvider = async () => {
-    //         let provider = null;
-    //         if (window.ethereum) {
-    //             provider = window.ethereum;
-
-    //             try {
-    //                 await provider.enable();
-    //             } catch (error) {
-    //                 console.error("Not connected to Metamask")
-    //             }
-
-    //         } else if (window.web3) {
-    //             provider = window.web3.currentProvider
-
-    //         } else if (!process.env.productio) {
-    //             provider = new Web3.providers.HttpProvider("http://localhost:7545")
-    //         }
-
-    //         setWeb3Api({
-    //             web3: new Web3(provider),
-    //             provider
-    //         })
-    //     }
-    //     loadProvider()
-    // }, []);
-    // console.log("Web 3" + web3Api.web3)
-
     const [applicationList, setApplicationList] = useState([]);
 
     useEffect(() => {
