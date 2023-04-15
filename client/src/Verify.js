@@ -46,7 +46,7 @@ function Verify() {
                             <div class="field">
                                 <label class="label">Wallet Address</label>
                                 <div class="control">
-                                    <input type="text" claxss="input is-rounded" name='wallet' id="wallet" />
+                                    <input type="text" class="input is-rounded" name='wallet' id="wallet" />
                                 </div>
                             </div>
                             <div class="field">
