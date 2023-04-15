@@ -12,10 +12,9 @@ app.use(cors());
 app.use(express.json());
 
 //  Cloudinary Intergration
-const cl_user = process.env.CLUSER;
-const cl_key = process.env.CLKEY;
-const cl_secret = process.env.CLSECRET;
-
+const cl_user = process.env.CLUSER
+const cl_key = process.env.CLKEY
+const cl_secret = process.env.CLSECRET
 cloudinary.config({
     cloud_name: cl_user,
     api_key: cl_key,
@@ -23,22 +22,27 @@ cloudinary.config({
 });
 
 // Database Connection
+const db_host = process.env.DBHOST
+const db_user = process.env.DBUSER
+const db_password = process.env.DBPASS
+const db_name = process.env.DBNAME
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'blockverify'
+    host: db_host,
+    user: db_user,
+    password: db_password,
+    database: db_name
 })
 
+//  New Application Create Function
 app.post('/create', upload.array('uploaded_file'), function (req, res) {
     console.log(req)
 
     var wallet = req.body.wallet
     var name = req.body.fname
     var nic = req.body.nic
-    var nicfront = req.files[0].path;
-    var nicback = req.files[1].path;
-    var selfie = req.files[2].path;
+    var nicfront = req.files[0].path
+    var nicback = req.files[1].path
+    var selfie = req.files[2].path
     var state = 1
 
     // Run the three uploads in parallel
@@ -74,6 +78,7 @@ app.post('/create', upload.array('uploaded_file'), function (req, res) {
     })
 });
 
+//  Query to Get Applications from the DB
 app.get('/applications', (req, res) => {
     db.query("SELECT * FROM applications", (err, result) => {
         if (err) {
@@ -85,19 +90,19 @@ app.get('/applications', (req, res) => {
     })
 })
 
+// Delete Apllication Function
 app.post('/delete', function (req, res) {
     console.log(req.body)
 
     var id = req.body.applicationID
-
-    let sql = "DELETE FROM applications WHERE id = ?"
+    var sql = "DELETE FROM applications WHERE id = ?"
 
     db.query(sql, [id], (err, result) => {
         if (err) {
             console.log(err)
         } else {
             res.send("Deleted!")
-            console.log("Deleted : " + id )
+            console.log("Deleted : " + id)
         }
     })
 });

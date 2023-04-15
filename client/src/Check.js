@@ -32,7 +32,7 @@ function Check() {
         e.preventDefault();
 
         resetButtons()
-        
+
         items = await Contract.methods.getItems().call();
         console.log("Items : ", items);
 

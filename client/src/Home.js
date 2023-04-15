@@ -9,24 +9,14 @@ function Home() {
                     <a class="navbar-item" href="/">
                         <img alt='logo' src="logo.png" width="112" height="28" />
                     </a>
-
-                    {/* <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                    </a> */}
-
                     <div class="navbar-menu" id="navMenu">
-
                     </div>
                 </div>
-
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href='/'>Home</a>
                         <a class="navbar-item" href='/'>Help</a>
                     </div>
-
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons">
@@ -42,7 +32,6 @@ function Home() {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </nav>
             <hr style={{ marginTop: "0px" }} />

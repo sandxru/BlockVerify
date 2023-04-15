@@ -29,7 +29,6 @@ function Verify() {
                     <div class="navbar-menu" id="navMenu">
                     </div>
                 </div>
-
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href='/'>Home</a>
@@ -38,19 +37,18 @@ function Verify() {
                 </div>
             </nav>
             <hr style={{ marginTop: "0px" }} />
+
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
-
                     <section class="section">
                         <h1 class="title">Document Submission Form</h1>
                         <form id="formElement" encType="multipart/form-data" method="post">
                             <div class="field">
                                 <label class="label">Wallet Address</label>
                                 <div class="control">
-                                    <input type="text" class="input is-rounded" name='wallet' id="wallet" />
+                                    <input type="text" claxss="input is-rounded" name='wallet' id="wallet" />
                                 </div>
                             </div>
-
                             <div class="field">
                                 <button id="walletbtn" class="button is-primary is-rounded"
                                     onClick={async (e) => {
@@ -66,14 +64,12 @@ function Verify() {
                                         }, delayInMilliseconds);
                                     }}>Connect Wallet</button>
                             </div>
-
                             <div class="field">
                                 <label class="label">Full Name</label>
                                 <div class="control">
                                     <input type="text" name='fname' class="input is-rounded" />
                                 </div>
                             </div>
-
                             <div class="field">
                                 <label class="label">NIC Number</label>
                                 <div class="control">
@@ -81,7 +77,6 @@ function Verify() {
                                 </div>
                             </div>
                             <br />
-
                             <div class="field">
                                 <label class="label">NIC Front</label><br />
                                 <div class="file is-centered is-boxed is-success has-name">
@@ -95,7 +90,6 @@ function Verify() {
                                 </div>
                             </div>
                             <br />
-
                             <div class="field">
                                 <label class="label">NIC Back</label><br />
                                 <div class="file is-centered is-boxed is-success has-name">
@@ -109,7 +103,6 @@ function Verify() {
                                 </div>
                             </div>
                             <br />
-
                             <div class="field">
                                 <label class="label">Upload a selfie with the NIC</label><br />
                                 <div class="file is-centered is-boxed is-success has-name">
@@ -123,7 +116,6 @@ function Verify() {
                                 </div>
                             </div>
                             <br />
-
                             <div class="field">
                                 <div class="control">
                                     <label class="checkbox">
@@ -131,7 +123,6 @@ function Verify() {
                                     </label>
                                 </div>
                             </div>
-
                             <div class="field is-grouped">
                                 <div class="control">
                                     <button onClick={submitApplication} class="button is-primary is-rounded">Submit for Review</button>
