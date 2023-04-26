@@ -32,7 +32,6 @@ function Verify() {
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href='/'>Home</a>
-                        <a class="navbar-item" href='/'>Help</a>
                     </div>
                 </div>
             </nav>
@@ -116,13 +115,6 @@ function Verify() {
                                 </div>
                             </div>
                             <br />
-                            <div class="field">
-                                <div class="control">
-                                    <label class="checkbox">
-                                        <input type="checkbox" /> I agree to the <a href="/">terms and conditions</a>
-                                    </label>
-                                </div>
-                            </div>
                             <div class="field is-grouped">
                                 <div class="control">
                                     <button onClick={submitApplication} class="button is-primary is-rounded">Submit for Review</button>

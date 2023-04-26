@@ -55,8 +55,32 @@ function Admin() {
             BlockVerifyContract.abi,
             BlockVerifyContract.networks[netId].address
         );
+
+        window.ethereum.enable().then(function (accounts) {
+            const account = accounts[0];
+
+            // Get the balance of the account in Wei
+            web3.eth.getBalance(account, function (error, weiBalance) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    // Convert the balance from Wei to Ether
+                    const etherBalance = web3.utils.fromWei(weiBalance, 'ether');
+                    console.log(`Account balance: ${etherBalance} ETH`);
+
+                    
+                    
+                    document.getElementById("ethbalance").innerHTML = etherBalance;
+                }
+            });
+        });
+
+        
+
     }
     Web3Config()
+
+
 
     const acceptRecord = async (e) => {
         e.preventDefault();
@@ -91,7 +115,6 @@ function Admin() {
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href='/'>Home</a>
-                        <a class="navbar-item" href='/'>Help</a>
                     </div>
                 </div>
             </nav>
@@ -104,16 +127,16 @@ function Admin() {
                         <p class="title">{applicationList.length}</p>
                     </div>
                 </div>
-                <div class="level-item has-text-centered">
+                {/* <div class="level-item has-text-centered">
                     <div class="box">
                         <p class="heading">Total Verified Users</p>
                         <p class="title">1,456</p>
                     </div>
-                </div>
+                </div> */}
                 <div class="level-item has-text-centered">
                     <div class="box">
                         <p class="heading">Ether Balance</p>
-                        <p class="title">87.05</p>
+                        <p id="ethbalance" class="title"></p>
                     </div>
                 </div>
             </nav>
@@ -205,13 +228,7 @@ function Admin() {
                                     </div>
                                 </div>
                                 <br />
-                                <div class="field">
-                                    <div class="control">
-                                        <label class="checkbox">
-                                            <input type="checkbox" /> Confirm the details are correct.
-                                        </label>
-                                    </div>
-                                </div>
+                    
                                 <div class="field is-grouped">
                                     <div class="control">
                                         <button onClick={declineRecord} class="button is-danger is-rounded" style={{ marginRight: "10px" }}>Decline</button>
