@@ -3,6 +3,7 @@ import axios from 'axios';
 
 function Verify() {
 
+//  Submit New Application Function
     const submitApplication = (e) => {
         e.preventDefault();
         var form = document.querySelector("#formElement");

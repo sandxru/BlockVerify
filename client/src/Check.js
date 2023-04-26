@@ -10,13 +10,14 @@ function Check() {
         document.getElementById("notverified").style.display = 'none';
     })
 
+//  Reset Buttons
     function resetButtons() {
         document.getElementById("verified").style.display = 'none';
         document.getElementById("notverified").style.display = 'none';
     }
 
+//  Web3 Configuration
     let provider, Contract, web3, items = undefined;
-
     const Web3Config = async (e) => {
         provider = window.ethereum;
         web3 = new Web3(provider);
@@ -30,9 +31,9 @@ function Check() {
 
     const checkStatus = async (e) => {
         e.preventDefault();
-
         resetButtons()
 
+        // Call getItems Function from the Smart Contract
         items = await Contract.methods.getItems().call();
         console.log("Items : ", items);
 

@@ -13,6 +13,7 @@ function Admin() {
         document.getElementById("reviewcontainer").style.display = 'none';
 
         const getApplications = () => {
+            //  Sending Post Request to the Server
             axios.get('http://localhost:3001/applications').then((response) => {
                 console.log(response)
                 setApplicationList(response.data)
@@ -35,6 +36,7 @@ function Admin() {
         document.getElementById("formselfie").src = selfie;
     }
 
+//  Decline Apllication Function
     const declineRecord = (e) => {
         e.preventDefault();
         axios.post('http://localhost:3001/delete', {
@@ -46,6 +48,7 @@ function Admin() {
         });
     };
 
+//  Web3 Configuration
     let provider, Contract, web3 = undefined;
     const Web3Config = async (e) => {
         provider = window.ethereum;
@@ -56,6 +59,7 @@ function Admin() {
             BlockVerifyContract.networks[netId].address
         );
 
+        //  Retrieve Account Address
         window.ethereum.enable().then(function (accounts) {
             const account = accounts[0];
 
@@ -67,21 +71,15 @@ function Admin() {
                     // Convert the balance from Wei to Ether
                     const etherBalance = web3.utils.fromWei(weiBalance, 'ether');
                     console.log(`Account balance: ${etherBalance} ETH`);
-
-                    
-                    
+                    //  Set Ether Balance
                     document.getElementById("ethbalance").innerHTML = etherBalance;
                 }
             });
         });
-
-        
-
     }
     Web3Config()
 
-
-
+//  Application Accept Function
     const acceptRecord = async (e) => {
         e.preventDefault();
         console.log("acceptRecord Started")
@@ -94,6 +92,7 @@ function Admin() {
                 from: account[0],
             })
 
+        //  Sending Post Request to the Server
         axios.post('http://localhost:3001/delete', {
             applicationID: deleteID,
         }).then(() => {
@@ -127,12 +126,6 @@ function Admin() {
                         <p class="title">{applicationList.length}</p>
                     </div>
                 </div>
-                {/* <div class="level-item has-text-centered">
-                    <div class="box">
-                        <p class="heading">Total Verified Users</p>
-                        <p class="title">1,456</p>
-                    </div>
-                </div> */}
                 <div class="level-item has-text-centered">
                     <div class="box">
                         <p class="heading">Ether Balance</p>
