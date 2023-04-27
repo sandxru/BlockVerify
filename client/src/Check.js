@@ -69,7 +69,6 @@ function Check() {
             <hr style={{ marginTop: "0px" }} />
             <div class="columns">
                 <div class="column is-half is-offset-one-quarter">
-
                     <section class="section">
                         <h1 class="title">Check Verification Status</h1>
                         <form id="formElement" encType="multipart/form-data" method="post">
@@ -86,10 +85,8 @@ function Check() {
                             </div>
                         </form>
                         <br></br>
-
                         <button id="verified" class="button is-success is-rounded" >Fully Verified</button>
                         <button id="notverified" class="button is-danger is-rounded" >Not Verified</button>
-
                     </section>
                 </div>
             </div>
